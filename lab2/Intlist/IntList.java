@@ -80,21 +80,33 @@ public class IntList {
      * *  elements of B.  May modify items of A. Don't use 'new'.
      */
 
+/*iteration version*/
 
-
-        public static IntList dcatenate(IntList A, IntList B) {
+    public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
-        IntList res = A;
-        while (A.rest != null) {
-            A = A.rest;
+        IntList ptr = A;
+        if (A == null) {
+            return B;
         }
-        A.rest = B;
-        return res;
+        while (ptr.rest != null) {
+            ptr = ptr.rest;
+        }
+        ptr.rest = B;
+        return A;
     }
 
 
-    /*try with recursion : nope*/
-
+    /*try with recursion*/
+    /*
+    public static IntList dcatenate(IntList A, IntList B) {
+        //TODO:  fill in method
+        if (A == null) {
+            return B;
+        }
+        A.rest = dcatenate(A.rest, B);
+        return A;
+    }
+*/
 
     /**
      * Returns a list consisting of the elements of A followed by the
@@ -103,7 +115,7 @@ public class IntList {
 
     /*try with iteration*/
 
-    /*
+
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
 
@@ -118,9 +130,10 @@ public class IntList {
         }
         ptr.rest=B;
         return res;
-    }*/
+    }
 
     /*try with recursion*/
+    /*
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
         if (A == null) {
@@ -128,7 +141,7 @@ public class IntList {
         }
         return new IntList(A.first, catenate(A.rest, B));
     }
-
+*/
 
 
 
