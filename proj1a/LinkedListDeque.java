@@ -80,7 +80,7 @@ public class LinkedListDeque<T> {
         if (this.size == 0) {
             return null;
         } else {
-            T ans = this.sentinel.next.item;
+            T ans = this.sentinel.prev.item;
             this.sentinel.prev.prev.next = this.sentinel;
             this.sentinel.prev = this.sentinel.prev.prev;
             size -= 1;
