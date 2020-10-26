@@ -5,7 +5,8 @@ public class ArrayDeque<T> {
     private int nextLast;
     private int size;
 
-    /* You may add any private helper classes or methods in ArrayDeque.java if you deem it necessary. */
+    /* You may add any private helper classes or methods in ArrayDeque.
+    java if you deem it necessary. */
 
     /* Creates an empty array deque. */
     public ArrayDeque() {
@@ -54,7 +55,7 @@ public class ArrayDeque<T> {
             resize(this.size * 2);
         }
         items[this.nextFirst] = item;
-        this.nextFirst = this.MinusOne(this.nextFirst);
+        this.nextFirst = MinusOne(this.nextFirst);
         this.size += 1;
     }
 
@@ -68,11 +69,16 @@ public class ArrayDeque<T> {
         this.size += 1;
     }
 
-    /* Removes and returns the item at the front of the deque. If no such item exists, returns null. */
+    /* Removes and returns the item at the front of the deque.
+    If no such item exists, returns null. */
     public T removeFirst() {
-        T ans = items[PlusOne(this.nextFirst)];
+
         this.nextFirst = PlusOne(this.nextFirst);
-        this.size -= 1;
+        T ans = items[this.nextFirst];
+        items[this.nextFirst] = null;//it is unnecessary.
+        if (!isEmpty()) {
+            this.size -= 1;
+        }
         if (size < this.items.length / 2) {
             resize(this.items.length / 2);//num will not small than size
         }
@@ -80,9 +86,12 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
-        T ans = items[MinusOne(this.nextLast)];
         this.nextLast = MinusOne((this.nextLast));
-        this.size -= 1;
+        T ans = items[this.nextLast];
+        items[this.nextLast] = null;//it is unnecessary.
+        if (!isEmpty()) {
+            this.size -= 1;
+        }
         if (size < this.items.length / 2) {
             resize(this.items.length / 2);
         }
@@ -111,7 +120,8 @@ public class ArrayDeque<T> {
         }
     }
 
-    /* Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
+    /* Gets the item at the given index,
+    where 0 is the front, 1 is the next item, and so forth.
      If no such item exists, returns null. Must not alter the deque! */
     public T get(int index) {
         if (index < 0 || index >= this.size) {
