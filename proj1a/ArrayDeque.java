@@ -30,7 +30,7 @@ public class ArrayDeque<T> {
      * what to do if num<size ? */
     private void resize(int num) {
         T[] a = (T[]) new Object[num];//new way to do.
-        int j = this.nextFirst;
+        int j = PlusOne(this.nextFirst);//the bug exists here!
         for (int i = 0; i < this.size; i++) {
             a[i] = items[j];
             j = PlusOne(j);
@@ -64,7 +64,7 @@ public class ArrayDeque<T> {
     /* Removes and returns the item at the front of the deque.
     If no such item exists, returns null. */
     public T removeFirst() {
-        if (size == 0) {
+        if (this.size == 0) {
             return null;
         }
         this.nextFirst = PlusOne(this.nextFirst);
@@ -73,14 +73,16 @@ public class ArrayDeque<T> {
         if (!isEmpty()) {
             this.size -= 1;
         }
+
         if (size < this.items.length / 2) {
             resize(this.items.length / 2);//num will not small than size
         }
+
         return ans;
     }
 
     public T removeLast() {
-        if (size == 0) {
+        if (this.size == 0) {
             return null;
         }
         this.nextLast = MinusOne((this.nextLast));
@@ -89,9 +91,11 @@ public class ArrayDeque<T> {
         if (!isEmpty()) {
             this.size -= 1;
         }
+
         if (size < this.items.length / 2) {
             resize(this.items.length / 2);
         }
+
         return ans;
     }
 
