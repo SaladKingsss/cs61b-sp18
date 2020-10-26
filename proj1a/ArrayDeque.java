@@ -64,7 +64,9 @@ public class ArrayDeque<T> {
     /* Removes and returns the item at the front of the deque.
     If no such item exists, returns null. */
     public T removeFirst() {
-
+        if (size == 0) {
+            return null;
+        }
         this.nextFirst = PlusOne(this.nextFirst);
         T ans = items[this.nextFirst];
         items[this.nextFirst] = null;//it is unnecessary.
@@ -78,6 +80,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
+        if (size == 0) {
+            return null;
+        }
         this.nextLast = MinusOne((this.nextLast));
         T ans = items[this.nextLast];
         items[this.nextLast] = null;//it is unnecessary.
