@@ -18,7 +18,9 @@ public class LinkedListDeque<T> {
     /* Creates an empty linked list deque. */
     public LinkedListDeque() {
         size = 0;
-        sentinel = new IntNode(null, (T) "63", null);//sentinel is also an IntNode!!
+        this.sentinel = new IntNode(null, null, null);//sentinel is also an IntNode!!
+        this.sentinel.prev = this.sentinel;
+        this.sentinel.next = this.sentinel;
         //here you need to do something to keep its types correct.
     }
 
@@ -66,8 +68,8 @@ public class LinkedListDeque<T> {
         if (this.size == 0) {
             return null;
         } else {
-            this.sentinel.next.next.prev=this.sentinel;
-            this.sentinel.next=this.sentinel.next.next;
+            this.sentinel.next.next.prev = this.sentinel;
+            this.sentinel.next = this.sentinel.next.next;
             size -= 1;
             return this.sentinel.next.item;
         }
@@ -78,8 +80,8 @@ public class LinkedListDeque<T> {
         if (this.size == 0) {
             return null;
         } else {
-            this.sentinel.prev.prev.next=this.sentinel;
-            this.sentinel.prev=this.sentinel.prev.prev;
+            this.sentinel.prev.prev.next = this.sentinel;
+            this.sentinel.prev = this.sentinel.prev.prev;
             size -= 1;
             return this.sentinel.prev.item;
         }
