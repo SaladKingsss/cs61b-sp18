@@ -1,9 +1,9 @@
 public class LinkedListDeque<T> {
 
     private class IntNode {
-        public IntNode prev;
-        public T item;
-        public IntNode next;
+        private IntNode prev;
+        private T item;
+        private IntNode next;
 
         public IntNode(IntNode m, T i, IntNode n) {
             prev = m;
@@ -18,7 +18,7 @@ public class LinkedListDeque<T> {
     /* Creates an empty linked list deque. */
     public LinkedListDeque() {
         size = 0;
-        this.sentinel = new IntNode(null, null, null);//sentinel is also an IntNode!!
+        this.sentinel = new IntNode(null, null, null); //sentinel is also an IntNode!!
         this.sentinel.prev = this.sentinel;
         this.sentinel.next = this.sentinel;
         //here you need to do something to keep its types correct.
@@ -107,7 +107,7 @@ public class LinkedListDeque<T> {
             }
             return p.item;
         }
-    }//may have problems.
+    } //may have problems.
 
 
     /* Same as get, but uses recursion.
