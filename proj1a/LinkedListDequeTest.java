@@ -72,9 +72,8 @@ public class LinkedListDequeTest {
     public static void addRemoveTest() {
 
         System.out.println("Running add/remove test.");
-
-		/*System.out.println("Make sure to uncomment the lines below
-		(and delete this print statement).");*/
+        /*System.out.println("Make sure to uncomment the lines below
+        (and delete this print statement).");*/
 
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
         // should be empty

@@ -101,11 +101,7 @@ public class ArrayDeque<T> {
 
     /* Returns true if deque is empty, false otherwise. */
     public boolean isEmpty() {
-        if (this.size == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return (this.size == 0);
     }
 
     /* Returns the number of items in the deque. */
