@@ -17,23 +17,23 @@ public class ArrayDeque<T> {
     }
 
     /* move the pointer. */
-    private int PlusOne(int x) {
+    private int plusOne(int x) {
         return (x + 1) % this.items.length;
     }
 
     /* move the pointer. */
-    private int MinusOne(int x) {
+    private int minusOne(int x) {
         return (x - 1 + this.items.length) % this.items.length;
     }
 
     /* resize the arrays and change their order.
      * what to do if num<size ? */
     private void resize(int num) {
-        T[] a = (T[]) new Object[num];//new way to do.
-        int j = PlusOne(this.nextFirst);//the bug exists here!
+        T[] a = (T[]) new Object[num]; //new way to do.
+        int j = plusOne(this.nextFirst); //the bug exists here!
         for (int i = 0; i < this.size; i++) {
             a[i] = items[j];
-            j = PlusOne(j);
+            j = plusOne(j);
         }
         this.items = a;
         this.nextFirst = this.items.length - 1;
@@ -47,7 +47,7 @@ public class ArrayDeque<T> {
             resize(this.size * 2);
         }
         items[this.nextFirst] = item;
-        this.nextFirst = MinusOne(this.nextFirst);
+        this.nextFirst = minusOne(this.nextFirst);
         this.size += 1;
     }
 
@@ -57,7 +57,7 @@ public class ArrayDeque<T> {
             resize(this.size * 2);
         }
         items[this.nextLast] = item;
-        this.nextLast = PlusOne(this.nextLast);
+        this.nextLast = plusOne(this.nextLast);
         this.size += 1;
     }
 
@@ -67,15 +67,15 @@ public class ArrayDeque<T> {
         if (this.size == 0) {
             return null;
         }
-        this.nextFirst = PlusOne(this.nextFirst);
+        this.nextFirst = plusOne(this.nextFirst);
         T ans = items[this.nextFirst];
-        items[this.nextFirst] = null;//it is unnecessary.
+        items[this.nextFirst] = null; //it is unnecessary.
         if (!isEmpty()) {
             this.size -= 1;
         }
 
         if (size < this.items.length / 2) {
-            resize(this.items.length / 2);//num will not small than size
+            resize(this.items.length / 2); //num will not small than size
         }
 
         return ans;
@@ -85,9 +85,9 @@ public class ArrayDeque<T> {
         if (this.size == 0) {
             return null;
         }
-        this.nextLast = MinusOne((this.nextLast));
+        this.nextLast = minusOne((this.nextLast));
         T ans = items[this.nextLast];
-        items[this.nextLast] = null;//it is unnecessary.
+        items[this.nextLast] = null; //it is unnecessary.
         if (!isEmpty()) {
             this.size -= 1;
         }
@@ -115,7 +115,7 @@ public class ArrayDeque<T> {
 
     /* Prints the items in the deque from first to last, separated by a space. */
     public void printDeque() {
-        for (int i = this.nextFirst; i != nextLast; i = PlusOne(i)) {
+        for (int i = this.nextFirst; i != nextLast; i = plusOne(i)) {
             System.out.print(items[i]);
             System.out.print(" ");
         }
@@ -130,7 +130,7 @@ public class ArrayDeque<T> {
         } else {
             int num = this.nextFirst;
             for (int i = 0; i <= index; i++) {
-                num = PlusOne(num);
+                num = plusOne(num);
             }
             return items[num];
         }
