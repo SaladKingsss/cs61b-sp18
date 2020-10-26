@@ -76,7 +76,7 @@ public class ArrayDeque<T> {
         if (size < this.items.length / 2) {
             resize(this.items.length / 2);//num will not small than size
         }
-        return T;
+        return ans;
     }
 
     public T removeLast() {
@@ -86,7 +86,7 @@ public class ArrayDeque<T> {
         if (size < this.items.length / 2) {
             resize(this.items.length / 2);
         }
-        return T;
+        return ans;
     }
 
     /* Returns true if deque is empty, false otherwise. */
