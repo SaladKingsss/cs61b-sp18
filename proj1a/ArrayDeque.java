@@ -70,21 +70,23 @@ public class ArrayDeque<T> {
 
     /* Removes and returns the item at the front of the deque. If no such item exists, returns null. */
     public T removeFirst() {
+        T ans = items[PlusOne(this.nextFirst)];
         this.nextFirst = PlusOne(this.nextFirst);
         this.size -= 1;
         if (size < this.items.length / 2) {
             resize(this.items.length / 2);//num will not small than size
         }
-        return items[PlusOne(this.nextFirst)];
+        return T;
     }
 
     public T removeLast() {
+        T ans = items[MinusOne(this.nextLast)];
         this.nextLast = MinusOne((this.nextLast));
         this.size -= 1;
         if (size < this.items.length / 2) {
             resize(this.items.length / 2);
         }
-        return items[MinusOne(this.nextLast)];
+        return T;
     }
 
     /* Returns true if deque is empty, false otherwise. */
@@ -112,7 +114,7 @@ public class ArrayDeque<T> {
     /* Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
      If no such item exists, returns null. Must not alter the deque! */
     public T get(int index) {
-        if (index < 0 || index > this.size) {
+        if (index < 0 || index >= this.size) {
             return null;
         } else {
             int num = this.nextFirst;
