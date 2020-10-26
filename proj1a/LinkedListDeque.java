@@ -66,10 +66,11 @@ public class LinkedListDeque<T> {
         if (this.size == 0) {
             return null;
         } else {
+            T ans = this.sentinel.next.item;
             this.sentinel.next.next.prev = this.sentinel;
             this.sentinel.next = this.sentinel.next.next;
             size -= 1;
-            return this.sentinel.next.item;
+            return ans;
         }
     }
 
@@ -79,10 +80,11 @@ public class LinkedListDeque<T> {
         if (this.size == 0) {
             return null;
         } else {
+            T ans = this.sentinel.next.item;
             this.sentinel.prev.prev.next = this.sentinel;
             this.sentinel.prev = this.sentinel.prev.prev;
             size -= 1;
-            return this.sentinel.prev.item;
+            return ans;
         }
     }
 
