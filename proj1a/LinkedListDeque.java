@@ -66,19 +66,22 @@ public class LinkedListDeque<T> {
         if (this.size == 0) {
             return null;
         } else {
+            this.sentinel.next.next.prev=this.sentinel;
+            this.sentinel.next=this.sentinel.next.next;
             size -= 1;
-
+            return this.sentinel.next.item;
         }
     }
 
     /* Removes and returns the item at the back of the deque. If no such item exists, returns null. */
     public T removeLast() {
-        size -= 1;
-        this.sentinel.prev = this.sentinel.prev.prev;
-        if (this.sentinel.prev != null) {
-            return this.sentinel.prev.item;
-        } else {
+        if (this.size == 0) {
             return null;
+        } else {
+            this.sentinel.prev.prev.next=this.sentinel;
+            this.sentinel.prev=this.sentinel.prev.prev;
+            size -= 1;
+            return this.sentinel.prev.item;
         }
     }
 
