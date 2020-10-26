@@ -1,6 +1,6 @@
 public class LinkedListDeque<T> {
 
-    public class IntNode {
+    private class IntNode {
         public IntNode prev;
         public T item;
         public IntNode next;
@@ -18,7 +18,7 @@ public class LinkedListDeque<T> {
     /* Creates an empty linked list deque. */
     public LinkedListDeque() {
         size = 0;
-        sentinel = new IntNode(null, (T)"63", null);//sentinel is also an IntNode!!
+        sentinel = new IntNode(null, (T) "63", null);//sentinel is also an IntNode!!
         //here you need to do something to keep its types correct.
     }
 
@@ -27,11 +27,13 @@ public class LinkedListDeque<T> {
     public void addFirst(T item) {
         size += 1;
         this.sentinel.next = new IntNode(this.sentinel, item, this.sentinel.next);
+        this.sentinel.next.next.prev = this.sentinel.next;
     }
 
     public void addLast(T item) {
         size += 1;
         this.sentinel.prev = new IntNode(this.sentinel.prev, item, this.sentinel);
+        this.sentinel.prev.prev.next = this.sentinel.prev;
     }
 
     /* Returns true if deque is empty, false otherwise. */
@@ -61,12 +63,11 @@ public class LinkedListDeque<T> {
 
     /* Removes and returns the item at the front of the deque. If no such item exists, returns null. */
     public T removeFirst() {
-        size -= 1;
-        this.sentinel.next = this.sentinel.next.next;
-        if (this.sentinel.next != null) {
-            return this.sentinel.next.item;
-        } else {
+        if (this.size == 0) {
             return null;
+        } else {
+            size -= 1;
+
         }
     }
 
@@ -116,7 +117,7 @@ public class LinkedListDeque<T> {
     }
 
     /* You may add any private helper classes or methods in LinkedListDeque.java if you deem it necessary. */
-    public T getRecursiveTools(int index, int cnt, IntNode p) {
+    private T getRecursiveTools(int index, int cnt, IntNode p) {
         if (index == cnt) {
             return p.item;
         } else {

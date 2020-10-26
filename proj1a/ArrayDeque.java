@@ -16,7 +16,7 @@ public class ArrayDeque<T> {
     }
 
     /* move the pointer. */
-    public int PlusOne(int x) {
+    private int PlusOne(int x) {
         if (x != this.items.length) {
             return x + 1;
         } else {
@@ -25,7 +25,7 @@ public class ArrayDeque<T> {
     }
 
     /* move the pointer. */
-    public int MinusOne(int x) {
+    private int MinusOne(int x) {
         if (x != 0) {
             return x - 1;
         } else {
@@ -35,7 +35,7 @@ public class ArrayDeque<T> {
 
     /* resize the arrays and change their order.
      * what to do if num<size ? */
-    public void resize(int num) {
+    private void resize(int num) {
         T[] a = (T[]) new Object[num];//new way to do.
         int j = this.nextFirst;
         for (int i = 0; i < this.size; i++) {
