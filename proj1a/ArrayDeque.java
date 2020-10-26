@@ -18,20 +18,12 @@ public class ArrayDeque<T> {
 
     /* move the pointer. */
     private int PlusOne(int x) {
-        if (x != this.items.length - 1) {
-            return x + 1;
-        } else {
-            return 0;
-        }
+        return (x + 1) % this.items.length;
     }
 
     /* move the pointer. */
     private int MinusOne(int x) {
-        if (x != 0) {
-            return x - 1;
-        } else {
-            return this.items.length - 1;
-        }
+        return (x - 1 + this.items.length) % this.items.length;
     }
 
     /* resize the arrays and change their order.
