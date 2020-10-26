@@ -25,7 +25,8 @@ public class LinkedListDeque<T> {
     }
 
     /* add and remove operations must not involve any looping or recursion.
-    A single such operation must take “constant time”, i.e. execution time should not depend on the size of the deque. */
+    A single such operation must take “constant time”,
+    i.e. execution time should not depend on the size of the deque. */
     public void addFirst(T item) {
         size += 1;
         this.sentinel.next = new IntNode(this.sentinel, item, this.sentinel.next);
@@ -40,11 +41,7 @@ public class LinkedListDeque<T> {
 
     /* Returns true if deque is empty, false otherwise. */
     public boolean isEmpty() {
-        if (this.sentinel.next != null) {
-            return false;
-        } else {
-            return true;
-        }
+        return this.sentinel.next == this.sentinel;
     }
 
     /* size must take constant time. */
@@ -63,7 +60,8 @@ public class LinkedListDeque<T> {
         }
     }
 
-    /* Removes and returns the item at the front of the deque. If no such item exists, returns null. */
+    /* Removes and returns the item at the front of the deque.
+    If no such item exists, returns null. */
     public T removeFirst() {
         if (this.size == 0) {
             return null;
@@ -75,7 +73,8 @@ public class LinkedListDeque<T> {
         }
     }
 
-    /* Removes and returns the item at the back of the deque. If no such item exists, returns null. */
+    /* Removes and returns the item at the back of the deque.
+    If no such item exists, returns null. */
     public T removeLast() {
         if (this.size == 0) {
             return null;
@@ -87,7 +86,8 @@ public class LinkedListDeque<T> {
         }
     }
 
-    /* Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
+    /* Gets the item at the given index,
+     where 0 is the front, 1 is the next item, and so forth.
      * If no such item exists, returns null. Must not alter the deque!
      * get must use iteration, not recursion.
      * sounds like i need to do some error handling.*/
@@ -100,7 +100,8 @@ public class LinkedListDeque<T> {
         } else {
             while (cnt <= index) {
                 p = p.next;
-                cnt++;//cnt starts from zero and now p and cnt both come to the first IntNode.
+                cnt++;
+                //cnt starts from zero and now p and cnt both come to the first IntNode.
             }
             return p.item;
         }
@@ -117,11 +118,13 @@ public class LinkedListDeque<T> {
         if (index >= size || index < 0) {
             return null;
         } else {
-            return getRecursiveTools(index, cnt, p);//return p and p will do recursion in the tools method.
+            return getRecursiveTools(index, cnt, p);
+            //return p and p will do recursion in the tools method.
         }
     }
 
-    /* You may add any private helper classes or methods in LinkedListDeque.java if you deem it necessary. */
+    /* You may add any private helper classes or methods in LinkedListDeque.
+    java if you deem it necessary. */
     private T getRecursiveTools(int index, int cnt, IntNode p) {
         if (index == cnt) {
             return p.item;
