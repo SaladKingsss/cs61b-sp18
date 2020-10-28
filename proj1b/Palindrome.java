@@ -30,10 +30,11 @@ public class Palindrome {
     Tip: Don’t use the get method of Deque.
     That will just make things unnecessarily complicated.
     */
-    public boolean isPalindrome(Deque word) {
-        if (word.size() <= 1) {
+    public boolean isPalindrome(String word) {
+        if (word.length() <= 1) {
             return true;
-        } else if (word.removeFirst() == word.removeLast()) {
+        } else if (word.charAt(0) == word.charAt(word.length() - 1)) {
+            word = word.substring(1, word.length() - 1);
             return isPalindrome(word);
         } else {
             return false;

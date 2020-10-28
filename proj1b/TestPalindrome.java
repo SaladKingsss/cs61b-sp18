@@ -19,45 +19,15 @@ public class TestPalindrome {
 
     @Test
     public void testisPalindrome() {
-        Deque a = palindrome.wordToDeque("persiflage");
-        boolean actual1 = false;
-        boolean expected1 = palindrome.isPalindrome(a);
-        assertEquals(expected1, actual1);
+        assertTrue(palindrome.isPalindrome("a"));
+        assertTrue(palindrome.isPalindrome("racecar"));
+        assertTrue(palindrome.isPalindrome(""));
+        assertTrue(palindrome.isPalindrome("aabaa"));
 
-        Deque b = palindrome.wordToDeque("a");
-        boolean actual2 = true;
-        boolean expected2 = palindrome.isPalindrome(b);
-        assertEquals(expected2, actual2);
-
-        Deque c = palindrome.wordToDeque("racecar");
-        boolean actual3 = true;
-        boolean expected3 = palindrome.isPalindrome(c);
-        assertEquals(expected3, actual3);
-
-        Deque d = palindrome.wordToDeque("Racecar");
-        boolean actual4 = false;
-        boolean expected4 = palindrome.isPalindrome(d);
-        assertEquals(expected4, actual4);
-
-        Deque e = palindrome.wordToDeque("aaaaab");
-        boolean actual5 = false;
-        boolean expected5 = palindrome.isPalindrome(e);
-        assertEquals(expected5, actual5);
-
-        Deque f = palindrome.wordToDeque("");
-        boolean actual6 = true;
-        boolean expected6 = palindrome.isPalindrome(f);
-        assertEquals(expected6, actual6);
-
-        Deque g = palindrome.wordToDeque("aabcaa");
-        boolean actual7 = false;
-        boolean expected7 = palindrome.isPalindrome(g);
-        assertEquals(expected7, actual7);
-
-        Deque h = palindrome.wordToDeque("aabaa");
-        boolean actual8 = true;
-        boolean expected8 = palindrome.isPalindrome(h);
-        assertEquals(expected8, actual8);
+        assertFalse(palindrome.isPalindrome("Racecar"));
+        assertFalse(palindrome.isPalindrome("aaaaab"));
+        assertFalse(palindrome.isPalindrome("aabcaa"));
+        assertFalse(palindrome.isPalindrome("persiflage"));
     } //Uncomment this class once you've created your Palindrome class.
 
     @Test
