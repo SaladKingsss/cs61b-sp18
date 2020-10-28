@@ -30,5 +30,5 @@ public class TestOffByN {
         boolean actual6 = true;
         boolean expected6 = offByN.equalChars('r', 'w');
         assertEquals(expected6, actual6);
-    } //Uncomment this class once you've created your CharacterComparator interface and OffByOne class.
+    }
 }
