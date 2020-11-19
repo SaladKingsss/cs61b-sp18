@@ -1,10 +1,13 @@
+package synthesizer;
 // TODO: Make sure to make this class a part of the synthesizer package
 // package <package name>;
+
 import java.util.Iterator;
+
 
 //TODO: Make sure to make this class and all of its methods public
 //TODO: Make sure to make this class extend AbstractBoundedQueue<t>
-public class ArrayRingBuffer<T>  {
+public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     /* Index for the next dequeue or peek. */
     private int first;            // index for the next dequeue or peek
     /* Index for the next enqueue. */
@@ -21,6 +24,15 @@ public class ArrayRingBuffer<T>  {
         //       this.capacity should be set appropriately. Note that the local variable
         //       here shadows the field we inherit from AbstractBoundedQueue, so
         //       you'll need to use this.capacity to set the capacity.
+        this.first = 0;
+        this.last = 0;
+        this.fillCount = 0;
+        this.capacity = capacity;
+        this.rb = (T[]) new Object[capacity];//this is weird.
+    }
+
+    public int addOne(int num) {
+        return (num + 1) % this.capacity;
     }
 
     /**
@@ -28,8 +40,15 @@ public class ArrayRingBuffer<T>  {
      * throw new RuntimeException("Ring buffer overflow"). Exceptions
      * covered Monday.
      */
+    @Override
     public void enqueue(T x) {
         // TODO: Enqueue the item. Don't forget to increase fillCount and update last.
+        if (isFull()) {
+            throw new RuntimeException("Ring buffer overflow");
+        }
+        rb[this.last] = x;
+        this.last = addOne(this.last);
+        this.fillCount += 1;
     }
 
     /**
@@ -37,16 +56,64 @@ public class ArrayRingBuffer<T>  {
      * throw new RuntimeException("Ring buffer underflow"). Exceptions
      * covered Monday.
      */
+    @Override
     public T dequeue() {
-        // TODO: Dequeue the first item. Don't forget to decrease fillCount and update 
+        // TODO: Dequeue the first item. Don't forget to decrease fillCount and update
+        if (isEmpty()) {
+            throw new RuntimeException("Ring buffer underflow");
+        }
+        T num = rb[this.first];
+        this.first = addOne(this.first);
+        this.fillCount -= 1;
+        return num;
     }
 
     /**
      * Return oldest item, but don't remove it.
      */
+    @Override
     public T peek() {
         // TODO: Return the first item. None of your instance variables should change.
+        if (isEmpty()) {
+            throw new RuntimeException("Ring buffer underflow");
+        }
+        return rb[this.first];
     }
 
     // TODO: When you get to part 5, implement the needed code to support iteration.
+
+
+
+
+
+    // DONE: When you get to part 4, implement the needed code to support
+    //       iteration and equals.
+    @Override
+    public Iterator<T> iterator() {
+        return new Iter();
+    }
+
+    private class Iter implements Iterator<T> {
+        private int p;
+        private int begin;
+
+        private Iter() {
+            p = first;
+            begin = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return (rb[p] != null) && !(p == first && begin == 1);
+            //true : p=first and begin=0 or p != first; false : p = first and begin=1
+        }
+
+        @Override
+        public T next() {
+            T a = rb[p];
+            p = addOne(p);
+            begin = 1;
+            return a;
+        }
+    }
 }

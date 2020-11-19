@@ -8,8 +8,24 @@ import static org.junit.Assert.*;
 
 public class TestArrayRingBuffer {
     @Test
-    public void someTest() {
-        //ArrayRingBuffer arb = new ArrayRingBuffer(10);
+    public void someTest1() {
+        ArrayRingBuffer x = new ArrayRingBuffer(10);
+        x.enqueue(33.1); // 33.1 null null  null
+        x.enqueue(44.8); // 33.1 44.8 null  null
+        x.enqueue(62.3); // 33.1 44.8 62.3  null
+        x.enqueue(-3.4); // 33.1 44.8 62.3 -3.4
+        x.dequeue();     // 44.8 62.3 -3.4  null (returns 33.1)
+        assertEquals(44.8,x.peek());
+        assertEquals(44.8,x.dequeue());
+        x.dequeue();
+        x.dequeue();
+        assertEquals(null,x.peek());
+    }
+    @Test
+    public void someTest2(){
+        ArrayRingBuffer x = new ArrayRingBuffer(10);
+        x.dequeue();
+        assertEquals(null,x.peek());
     }
 
     /** Calls tests for ArrayRingBuffer. */
