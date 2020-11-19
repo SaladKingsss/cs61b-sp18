@@ -1,4 +1,5 @@
 package synthesizer;
+
 // Make sure to make this class a part of the synthesizer package
 //package <package name>;
 
@@ -25,7 +26,6 @@ public class GuitarString {
         for (int i = 0; i < buffer.capacity(); i += 1) {
             buffer.enqueue(0.0);
         }
-        //TODO: bugs here.
     }
 
 
@@ -49,9 +49,9 @@ public class GuitarString {
         //       Dequeue the front sample and enqueue a new sample that is
         //       the average of the two multiplied by the DECAY factor.
         //       Do not call StdAudio.play().
-        double Oldfirst = buffer.dequeue();
+        double oldfirst = buffer.dequeue();
         double newFirst = buffer.peek();
-        buffer.enqueue((Oldfirst + newFirst) / 2 * 0.996);
+        buffer.enqueue((oldfirst + newFirst) / 2 * 0.996);
     }
 
     /* Return the double at the front of the buffer. */

@@ -1,6 +1,4 @@
 package synthesizer;
-// Make sure to make this class a part of the synthesizer package
-// package <package name>;
 
 import java.util.Iterator;
 
@@ -28,7 +26,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         this.last = 0;
         this.fillCount = 0;
         this.capacity = capacity;
-        this.rb = (T[]) new Object[capacity];//this is weird.
+        this.rb = (T[]) new Object[capacity]; //this is weird.
     }
 
     private int addOne(int num) {
