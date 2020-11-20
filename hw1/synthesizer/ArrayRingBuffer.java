@@ -96,8 +96,8 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         private int begin;
 
         private Iter() {
-            p = first;
             begin = 0;
+            p = first;
         }
 
         @Override
