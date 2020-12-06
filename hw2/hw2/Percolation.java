@@ -39,7 +39,7 @@ public class Percolation {
             this.site.union(N * N, calNumOfPosition(row, col));
         }
         //fix backwash problem.
-        if (row == N - 1 && this.site.connected(N * N, calNumOfPosition(row, col))) {
+        if (row == N - 1) {
             this.site.union(calNumOfPosition(row, col), N * N + 1);
         }
 
