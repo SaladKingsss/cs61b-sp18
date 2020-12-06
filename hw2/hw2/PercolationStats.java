@@ -5,7 +5,7 @@ import edu.princeton.cs.introcs.StdStats;
 
 public class PercolationStats {
 
-    private Percolation site;
+
     private int T;
     private double[] ansofSites;
 
@@ -14,19 +14,19 @@ public class PercolationStats {
         if (N <= 0 || T <= 0) {
             throw new java.lang.IllegalArgumentException();
         }
-        this.site = pf.make(N);
         this.T = T;
         this.ansofSites = new double[N];
         for (int i = 1; i <= T; i++) {
-            while (!this.site.percolates()) {
+            Percolation site = pf.make(N);
+            while (!site.percolates()) {
                 int x, y;
                 do {
                     x = StdRandom.uniform(N);
                     y = StdRandom.uniform(N);
-                } while (this.site.isOpen(x, y));
-                this.site.open(x, y);
+                } while (site.isOpen(x, y));
+                site.open(x, y);
             }
-            this.ansofSites[i] = (double) this.site.numberOfOpenSites() / (double) (N * N);
+            this.ansofSites[i] = (double) site.numberOfOpenSites() / (double) (N * N);
         }
 
 
