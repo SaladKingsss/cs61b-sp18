@@ -1,5 +1,6 @@
 package hw2;
 
+import edu.princeton.cs.introcs.StdOut;
 import edu.princeton.cs.introcs.StdRandom;
 import edu.princeton.cs.introcs.StdStats;
 
@@ -19,17 +20,14 @@ public class PercolationStats {
         for (int i = 0; i < T; i++) {
             Percolation site = pf.make(N);
             while (!site.percolates()) {
-                int x, y;
-                do {
-                    x = StdRandom.uniform(N);
-                    y = StdRandom.uniform(N);
-                } while (site.isOpen(x, y));
-                site.open(x, y);
+                int x = StdRandom.uniform(N);
+                int y = StdRandom.uniform(N);
+                if (!site.isOpen(x, y)) {
+                    site.open(x, y);
+                }
             }
             this.ansofSites[i] = (double) site.numberOfOpenSites() / (double) (N * N);
         }
-
-
     }
 
     // sample mean of percolation threshold
@@ -52,9 +50,13 @@ public class PercolationStats {
         return mean() + 1.96 * stddev() / Math.sqrt(this.T);
     }
 
-//    public static void main(String[] args) {
-//        PercolationStats ps = new PercolationStats(1600, 10, new PercolationFactory());
-//        System.out.println(ps.mean());
-//        System.out.println(ps.stddev());
-//    }
+    public static void main(String[] args)    // test client (described below)
+    {
+        int N = Integer.parseInt(args[0]);
+        int T = Integer.parseInt(args[1]);
+        PercolationStats ps = new PercolationStats(N, T, new PercolationFactory());
+        StdOut.println("mean                    = " + ps.mean());
+        StdOut.println("stddev                  = " + ps.stddev());
+        StdOut.println("95% confidence interval = " + ps.confidenceLow() + ", " + ps.confidenceHigh());
+    }
 }
