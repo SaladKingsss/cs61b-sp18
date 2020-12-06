@@ -16,7 +16,7 @@ public class PercolationStats {
             throw new java.lang.IllegalArgumentException();
         }
         this.T = T;
-        this.ansofSites = new double[N];
+        this.ansofSites = new double[T];
         for (int i = 0; i < T; i++) {
             Percolation site = pf.make(N);
             while (!site.percolates()) {
