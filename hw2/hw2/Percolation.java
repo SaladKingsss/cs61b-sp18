@@ -36,7 +36,10 @@ public class Percolation {
         if (row == 0) {
             this.site.union(this.N * this.N, calNumOfPosition(row, col));
         }
-        if (row == N - 1) {
+        //fix backwash problem.
+        if (row == N - 1
+                && this.site.find(calNumOfPosition(row, col)) >= 0
+                && this.site.find(calNumOfPosition(row, col)) < this.N) {
             this.site.union(calNumOfPosition(row, col), this.N * this.N + 1);
         }
         //??????????????????????????????????????????
