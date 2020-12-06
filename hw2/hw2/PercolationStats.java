@@ -1,6 +1,7 @@
 package hw2;
 
-import edu.princeton.cs.introcs.StdOut;
+//import edu.princeton.cs.introcs.StdOut;
+
 import edu.princeton.cs.introcs.StdRandom;
 import edu.princeton.cs.introcs.StdStats;
 
@@ -57,6 +58,6 @@ public class PercolationStats {
 //        PercolationStats ps = new PercolationStats(N, T, new PercolationFactory());
 //        StdOut.println("mean                    = " + ps.mean());
 //        StdOut.println("stddev                  = " + ps.stddev());
-//        StdOut.println("95% confidence interval = " + ps.confidenceLow() + ", " + ps.confidenceHigh());
+//        StdOut.println("95% conf = " + ps.confidenceLow() + ", " + ps.confidenceHigh());
 //    }
 }
