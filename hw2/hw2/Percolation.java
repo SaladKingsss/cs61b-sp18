@@ -47,10 +47,10 @@ public class Percolation {
         this.openflag[row][col] = true;
         //每次要到再写工具函数的时候，我就会觉得这是很难的一件事！！！！！！！
         //needs to union neighbor opened.
-        this.UnionOpenNeighbor(row, col, row, col + 1);
-        this.UnionOpenNeighbor(row, col, row, col - 1);
-        this.UnionOpenNeighbor(row, col, row + 1, col);
-        this.UnionOpenNeighbor(row, col, row - 1, col);
+        this.unionOpenNeighbor(row, col, row, col + 1);
+        this.unionOpenNeighbor(row, col, row, col - 1);
+        this.unionOpenNeighbor(row, col, row + 1, col);
+        this.unionOpenNeighbor(row, col, row - 1, col);
 
     }
 
@@ -77,7 +77,7 @@ public class Percolation {
         return this.site.connected(this.N * this.N, this.N * this.N + 1);
     }
 
-    private void UnionOpenNeighbor(int row, int col, int newRow, int newCol) {
+    private void unionOpenNeighbor(int row, int col, int newRow, int newCol) {
         if (newRow >= N || newRow < 0 || newCol >= N || newCol < 0) {
             return;
         }

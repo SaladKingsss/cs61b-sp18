@@ -16,7 +16,7 @@ public class PercolationStats {
         }
         this.T = T;
         this.ansofSites = new double[N];
-        for (int i = 1; i <= T; i++) {
+        for (int i = 0; i < T; i++) {
             Percolation site = pf.make(N);
             while (!site.percolates()) {
                 int x, y;
