@@ -8,8 +8,6 @@ public class Percolation {
     private WeightedQuickUnionUF site;
     private int N;
     private boolean[][] openflag;
-    private boolean topSiteOpenFlag;
-    private boolean bottomSiteOpenFlag;
     private int numofOpen;
 
     // create N-by-N grid, with all sites initially blocked
@@ -30,26 +28,22 @@ public class Percolation {
 
     // open the site (row, col) if it is not open already
     public void open(int row, int col) {
-        if (row >= N || row < 0 || col >= N || col < 0) {
-            throw new IndexOutOfBoundsException();
-        }
-        if (row == 0) {
-            this.site.union(this.N * this.N, calNumOfPosition(row, col));
-        }
-        //fix backwash problem.
-        if (row == N - 1
-                && this.site.find(calNumOfPosition(row, col)) >= 0
-                && this.site.find(calNumOfPosition(row, col)) < this.N) {
-            this.site.union(calNumOfPosition(row, col), this.N * this.N + 1);
-        }
-        //??????????????????????????????????????????
+        this.error(row, col);
         if (this.openflag[row][col]) {
             return;
         }
         this.numofOpen++;
         this.openflag[row][col] = true;
-        //每次要到再写工具函数的时候，我就会觉得这是很难的一件事！！！！！！！
-        //needs to union neighbor opened.
+
+        if (row == 0) {
+            this.site.union(N * N, calNumOfPosition(row, col));
+        }
+        //fix backwash problem.
+        if (row == N - 1 && this.site.connected(N * N, calNumOfPosition(row, col))) {
+            this.site.union(calNumOfPosition(row, col), N * N + 1);
+        }
+
+        //每次要到写工具函数的时候，我就会觉得这是很难的一件事！！！！！！！
         this.unionOpenNeighbor(row, col, row, col + 1);
         this.unionOpenNeighbor(row, col, row, col - 1);
         this.unionOpenNeighbor(row, col, row + 1, col);
@@ -59,15 +53,14 @@ public class Percolation {
 
     // is the site (row, col) open?
     public boolean isOpen(int row, int col) {
-        if (row >= N || row < 0 || col >= N || col < 0) {
-            throw new IndexOutOfBoundsException();
-        }
+        this.error(row, col);
         return this.openflag[row][col];
     }
 
     // is the site (row, col) full? (watered or not)
     public boolean isFull(int row, int col) {
-        return this.site.connected(this.N * this.N, calNumOfPosition(row, col));
+        this.error(row, col);
+        return this.site.connected(N * N, calNumOfPosition(row, col));
     }
 
     // number of open sites
@@ -77,7 +70,7 @@ public class Percolation {
 
     // does the system percolate?
     public boolean percolates() {
-        return this.site.connected(this.N * this.N, this.N * this.N + 1);
+        return this.site.connected(N * N, N * N + 1);
     }
 
     private void unionOpenNeighbor(int row, int col, int newRow, int newCol) {
@@ -86,6 +79,12 @@ public class Percolation {
         }
         if (isOpen(newRow, newCol)) {
             this.site.union(calNumOfPosition(row, col), calNumOfPosition(newRow, newCol));
+        }
+    }
+
+    private void error(int row, int col) {
+        if (row >= N || row < 0 || col >= N || col < 0) {
+            throw new IndexOutOfBoundsException();
         }
     }
 
