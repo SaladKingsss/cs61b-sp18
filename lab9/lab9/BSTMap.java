@@ -45,9 +45,10 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      * or null if this map contains no mapping for the key.
      */
     private V getHelper(K key, Node p) {
-        if (p.key == null) {
+        if (p == null) {
             return null;
-        } else if (key.compareTo(p.key) < 0) {
+        }
+        if (key.compareTo(p.key) < 0) {
             return getHelper(key, p.left);
         } else if (key.compareTo(p.key) > 0) {
             return getHelper(key, p.right);
@@ -62,6 +63,9 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      */
     @Override
     public V get(K key) {
+        if (key == null) {
+            throw new IllegalArgumentException("calls get() with a null key");
+        }
         return getHelper(key, this.root);
     }
 
@@ -76,9 +80,9 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
             return new Node(key, value);
         }
         if (key.compareTo(p.key) < 0) {
-            putHelper(key, value, p.left);
+            p.left = putHelper(key, value, p.left);
         } else if (key.compareTo(p.key) > 0) {
-            putHelper(key, value, p.right);
+            p.right = putHelper(key, value, p.right);
         } else {
             p.value = value;
         }
@@ -91,7 +95,10 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      */
     @Override
     public void put(K key, V value) {
-        putHelper(key, value, root);
+        if (key == null) {
+            throw new IllegalArgumentException("calls put() with a null key");
+        }
+        root = putHelper(key, value, root);//屮！！！！！
     }
 
     /* Returns the number of key-value mappings in this map. */
