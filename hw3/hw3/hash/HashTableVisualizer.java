@@ -1,6 +1,6 @@
 package hw3.hash;
 
-import edu.princeton.cs.algs4.Complex;
+//import edu.princeton.cs.algs4.Complex;
 
 import java.util.ArrayList;
 import java.util.List;
