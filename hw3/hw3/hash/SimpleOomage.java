@@ -1,6 +1,7 @@
 package hw3.hash;
 
 import java.awt.Color;
+import java.util.Random;
 
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdDraw;
@@ -12,7 +13,7 @@ public class SimpleOomage implements Oomage {
     protected int blue;
 
     private static final double WIDTH = 0.01;
-    private static final boolean USE_PERFECT_HASH = false;
+    private static final boolean USE_PERFECT_HASH = true;
 
     @Override
     public boolean equals(Object o) {
@@ -31,8 +32,13 @@ public class SimpleOomage implements Oomage {
         if (!USE_PERFECT_HASH) {
             return red + green + blue;
         } else {
-            // TODO: Write a perfect hash function for Simple Oomages.
-            return 0;
+            /*
+            int res = Integer.hashCode(red / 5);
+            res = res * 53 + Integer.hashCode(green / 5);
+            res = res * 71 + Integer.hashCode(blue / 5);
+            return res;
+            */
+            return (((red / 5) * 61 + (green / 5)) * 97 + (blue / 5)); //2 primes.
         }
     }
 

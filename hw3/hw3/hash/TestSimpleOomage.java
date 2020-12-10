@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-
+import static org.junit.Assert.assertFalse;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -30,17 +30,19 @@ public class TestSimpleOomage {
           meaning no two SimpleOomages should EVER have the same
           hashCode UNLESS they have the same red, blue, and green values!
          */
+        List<SimpleOomage> l = new ArrayList<>();
         for (int i = 0; i <= 255; i += 5) {
             for (int j = 0; j <= 255; j += 5) {
                 for (int k = 0; k <= 255; k += 5) {
-                    SimpleOomage random = new SimpleOomage(i, j, k);
-                    int hashCode = random.hashCode();
-                    assertEquals(hashCode, random.hashCode());
+                    l.add(new SimpleOomage(i, j, k));
                 }
             }
         }
-
-
+        List<Integer> s = new ArrayList<>();
+        for (SimpleOomage so : l) {
+            assertFalse(s.contains(so.hashCode()));
+            s.add(so.hashCode());
+        }
     }
 
     @Test
