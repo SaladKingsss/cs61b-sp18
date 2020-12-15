@@ -51,7 +51,7 @@ public class MazeDepthFirstPaths extends MazeExplorer {
 
     @Override
     public void solve() {
-        dfs(s);
+        dfs(s); //start from source
     }
 }
 
