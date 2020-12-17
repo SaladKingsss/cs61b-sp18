@@ -63,8 +63,8 @@ public class Solver {
             for (WorldState neighbor : currentNode.state.neighbors()) {
 
                 // A critical optimization checks that no enqueued WorldState is its own
-                if (currentNode.prevSearchNode != null &&
-                        neighbor.equals(currentNode.prevSearchNode.state)) {
+                if (currentNode.prevSearchNode != null
+                        && neighbor.equals(currentNode.prevSearchNode.state)) {
                     continue;
                 }
 

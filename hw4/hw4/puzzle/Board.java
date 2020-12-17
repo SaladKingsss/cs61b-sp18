@@ -11,7 +11,7 @@ public class Board implements WorldState {
 
 
     /* Constructs a board from an N-by-N array of tiles
-     * where tiles[i][j] = tile at row i, column j */
+     * where tileAt(i,j) = tile at row i, column j */
     public Board(int[][] tiles) {
 
         //?
@@ -20,7 +20,7 @@ public class Board implements WorldState {
 
         for (int i = 0; i <= N - 1; i++) {
             for (int j = 0; j <= N - 1; j++) {
-                this.tiles[i][j] = tiles[i][j];
+                this.tiles[i][j] = tileAt(i, j);
             }
         }
 
@@ -39,6 +39,109 @@ public class Board implements WorldState {
         return N;
     }
 
+
+    private int xyToD(int x, int y) {
+        return x * N + y + 1;
+    }
+
+    private int getManhattan(int i, int j) {
+        int x = (this.tileAt(i, j) - 1) / N;
+        int y = (this.tileAt(i, j) - 1) % N;
+        return (Math.abs(x - i) + Math.abs(y - j));
+    }
+
+
+    //  Hamming estimate described below
+    public int hamming() {
+        int ans = 0;
+        for (int i = 0; i <= N - 1; i++) {
+            for (int j = 0; j <= N - 1; j++) {
+                if (this.tileAt(i, j) == BLANK) {
+                    continue;
+                }
+                if (this.tileAt(i, j) != xyToD(i, j)) {
+                    ans += 1;
+                }
+            }
+        }
+        return ans;
+    }
+
+    //  Manhattan estimate described below
+    public int manhattan() {
+        int ans = 0;
+        for (int i = 0; i <= N - 1; i++) {
+            for (int j = 0; j <= N - 1; j++) {
+                if (this.tileAt(i, j) == BLANK) {
+                    continue;
+                }
+                ans += getManhattan(i, j);
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * Estimated distance to goal.
+     * This method should simply return the results of manhattan()
+     * when submitted to autograder.
+     */
+    @Override
+    public int estimatedDistanceToGoal() {
+        if (estimatedDistanceToGoal < 0) {
+            estimatedDistanceToGoal = manhattan();
+        }
+        return estimatedDistanceToGoal;
+    }
+
+    //Returns true if this board's tile values are the same position as y's
+    @Override
+    public boolean equals(Object y) {
+
+        if (y == this) {
+            return true;
+        }
+        if (y == null) {
+            return false;
+        }
+        if (y.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Board other = (Board) y;
+        for (int i = 0; i <= N - 1; i++) {
+            for (int j = 0; j <= N - 1; j++) {
+                if (this.tileAt(i, j) != other.tileAt(i, j)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    /**
+     * Returns the string representation of the board.
+     * Uncomment this method.
+     */
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        int N = size();
+        s.append(N + "\n");
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                s.append(String.format("%2d ", tileAt(i, j)));
+            }
+            s.append("\n");
+        }
+        s.append("\n");
+        return s.toString();
+    }
 
     /**
      * Returns the neighbors of the current board
@@ -78,109 +181,6 @@ public class Board implements WorldState {
             }
         }
         return neighbors;
-    }
-
-    private int xyToD(int x, int y) {
-        return x * N + y + 1;
-    }
-
-    private int getManhattan(int i, int j) {
-        int x = (this.tiles[i][j] - 1) / N;
-        int y = (this.tiles[i][j] - 1) % N;
-        return (Math.abs(x - i) + Math.abs(y - j));
-    }
-
-
-    //  Hamming estimate described below
-    public int hamming() {
-        int ans = 0;
-        for (int i = 0; i <= N - 1; i++) {
-            for (int j = 0; j <= N - 1; j++) {
-                if (this.tiles[i][j] == BLANK) {
-                    continue;
-                }
-                if (this.tiles[i][j] != xyToD(i, j)) {
-                    ans += 1;
-                }
-            }
-        }
-        return ans;
-    }
-
-    //  Manhattan estimate described below
-    public int manhattan() {
-        int ans = 0;
-        for (int i = 0; i <= N - 1; i++) {
-            for (int j = 0; j <= N - 1; j++) {
-                if (this.tiles[i][j] == BLANK) {
-                    continue;
-                }
-                ans += getManhattan(i, j);
-            }
-        }
-        return ans;
-    }
-
-    /**
-     * Estimated distance to goal.
-     * This method should simply return the results of manhattan()
-     * when submitted to autograder.
-     */
-    @Override
-    public int estimatedDistanceToGoal() {
-        if (estimatedDistanceToGoal < 0) {
-            estimatedDistanceToGoal = manhattan();
-        }
-        return estimatedDistanceToGoal;
-    }
-
-    //Returns true if this board's tile values are the same position as y's
-    @Override
-    public boolean equals(Object y) {
-
-        if (y == this) {
-            return true;
-        }
-        if (y == null) {
-            return false;
-        }
-        if (y.getClass() != this.getClass()) {
-            return false;
-        }
-
-        Board other = (Board) y;
-        for (int i = 0; i <= N - 1; i++) {
-            for (int j = 0; j <= N - 1; j++) {
-                if (this.tiles[i][j] != other.tiles[i][j]) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    /**
-     * Returns the string representation of the board.
-     * Uncomment this method.
-     */
-    @Override
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        int N = size();
-        s.append(N + "\n");
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                s.append(String.format("%2d ", tileAt(i, j)));
-            }
-            s.append("\n");
-        }
-        s.append("\n");
-        return s.toString();
     }
 
 }
