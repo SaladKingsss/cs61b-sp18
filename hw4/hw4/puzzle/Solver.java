@@ -8,9 +8,9 @@ public class Solver {
 
     private SearchNode head;
     private SearchNode tail;
-    public int numOfEnqueue;
+    int numOfEnqueue;
 
-    public class SearchNode implements Comparable<SearchNode> {
+    private class SearchNode implements Comparable<SearchNode> {
 
         //a WorldState.
         private WorldState state;
@@ -63,11 +63,13 @@ public class Solver {
             for (WorldState neighbor : currentNode.state.neighbors()) {
 
                 // A critical optimization checks that no enqueued WorldState is its own
-                if (currentNode.prevSearchNode != null && neighbor.equals(currentNode.prevSearchNode.state)) {
+                if (currentNode.prevSearchNode != null &&
+                        neighbor.equals(currentNode.prevSearchNode.state)) {
                     continue;
                 }
 
-                SearchNode newSearchNode = new SearchNode(neighbor, currentNode.numOfMoves + 1, currentNode);
+                SearchNode newSearchNode = new SearchNode(neighbor,
+                        currentNode.numOfMoves + 1, currentNode);
                 pq.insert(newSearchNode);
                 numOfEnqueue += 1;
             }
