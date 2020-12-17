@@ -10,6 +10,7 @@ public class Solver {
 
     private SearchNode head;
     private SearchNode tail;
+    public int numOfEnqueue;
 
     public class SearchNode implements Comparable<SearchNode> {
 
@@ -44,6 +45,7 @@ public class Solver {
         MinPQ<SearchNode> pq = new MinPQ<>();
         this.head = new SearchNode(initial, 0, null);
         pq.insert(this.head);
+        numOfEnqueue += 1;
 
         /**
          * Remove the search node with minimum priority. Let’s call this node X.
@@ -68,6 +70,7 @@ public class Solver {
 
                 SearchNode newSearchNode = new SearchNode(neighbor, currentNode.numOfMoves + 1, currentNode);
                 pq.insert(newSearchNode);
+                numOfEnqueue += 1;
             }
         }
     }
