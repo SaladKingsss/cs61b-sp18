@@ -3,8 +3,6 @@ package hw4.puzzle;
 import edu.princeton.cs.algs4.MinPQ;
 
 import java.util.ArrayDeque;
-import java.util.Comparator;
-import java.util.LinkedList;
 
 public class Solver {
 
@@ -40,6 +38,12 @@ public class Solver {
      * everything necessary for moves() and solution() to
      * not have to solve the problem again. Solves the
      * puzzle using the A* algorithm. Assumes a solution exists.
+     * <p>
+     * <p>
+     * Remove the search node with minimum priority. Let’s call this node X.
+     * If it is the goal node, then we’re done.
+     * Otherwise, for each neighbor of X’s world state, create a new search node
+     * that obeys the description above and insert it into the priority queue.
      */
     public Solver(WorldState initial) {
         MinPQ<SearchNode> pq = new MinPQ<>();
@@ -47,12 +51,7 @@ public class Solver {
         pq.insert(this.head);
         numOfEnqueue += 1;
 
-        /**
-         * Remove the search node with minimum priority. Let’s call this node X.
-         * If it is the goal node, then we’re done.
-         * Otherwise, for each neighbor of X’s world state, create a new search node
-         * that obeys the description above and insert it into the priority queue.
-         */
+
         while (!pq.isEmpty()) {
 
             SearchNode currentNode = pq.delMin();
@@ -80,7 +79,7 @@ public class Solver {
      * starting at the initial WorldState.
      */
     public int moves() {
-        return this.tail.numOfMoves;
+        return tail.numOfMoves;
     }
 
     /**
@@ -88,10 +87,11 @@ public class Solver {
      */
     public Iterable<WorldState> solution() {
         ArrayDeque<WorldState> ans = new ArrayDeque<>();
-        do {
+        while (this.tail.equals(this.head)) {
             ans.push(this.tail.state);
             this.tail = this.tail.prevSearchNode;
-        } while (this.tail != this.head);
+        }
+        ans.push(this.tail.state);
         return ans;
     }
 
