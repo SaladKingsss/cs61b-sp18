@@ -1,6 +1,7 @@
 package hw4.puzzle;
 
 import edu.princeton.cs.algs4.MinPQ;
+import edu.princeton.cs.algs4.StdOut;
 
 import java.util.ArrayDeque;
 
@@ -9,6 +10,9 @@ public class Solver {
     private SearchNode head;
     private SearchNode tail;
     private int numOfEnqueue;
+
+    MinPQ<SearchNode> pq = new MinPQ<>();
+    ArrayDeque<WorldState> ans = new ArrayDeque<>();
 
     private class SearchNode implements Comparable<SearchNode> {
 
@@ -34,6 +38,7 @@ public class Solver {
 
     }
 
+
     //bugs still.
     protected int getNumOfEnqueue() {
         return numOfEnqueue;
@@ -52,15 +57,17 @@ public class Solver {
      * that obeys the description above and insert it into the priority queue.
      */
     public Solver(WorldState initial) {
-        MinPQ<SearchNode> pq = new MinPQ<>();
+
         this.head = new SearchNode(initial, 0, null);
+        this.tail = this.head;
         pq.insert(this.head);
         numOfEnqueue += 1;
-
 
         while (!pq.isEmpty()) {
 
             SearchNode currentNode = pq.delMin();
+
+            // tail gets from here.
             if (currentNode.state.isGoal()) {
                 this.tail = currentNode;
                 break;
@@ -80,6 +87,7 @@ public class Solver {
                 numOfEnqueue += 1;
             }
         }
+
     }
 
     /**
@@ -94,7 +102,10 @@ public class Solver {
      * Returns a sequence of WorldStates from the initial WorldState to the solution.
      */
     public Iterable<WorldState> solution() {
-        ArrayDeque<WorldState> ans = new ArrayDeque<>();
+
+        if (this.tail == null) {
+            return ans;
+        }
         while (this.tail.equals(this.head)) {
             ans.push(this.tail.state);
             this.tail = this.tail.prevSearchNode;

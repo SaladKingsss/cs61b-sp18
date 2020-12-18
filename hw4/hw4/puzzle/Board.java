@@ -5,8 +5,8 @@ import edu.princeton.cs.algs4.Queue;
 public class Board implements WorldState {
 
     private final int BLANK = 0;
-    private final int[][] tiles;
-    private final int N;
+    private int[][] tiles;
+    private int N;
     private int estimatedDistanceToGoal = -1;
 
 
