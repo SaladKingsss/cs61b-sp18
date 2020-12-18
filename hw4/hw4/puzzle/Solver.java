@@ -103,14 +103,14 @@ public class Solver {
      */
     public Iterable<WorldState> solution() {
 
-        if (this.tail == null) {
-            return ans;
-        }
+
         while (this.tail.equals(this.head)) {
             ans.push(this.tail.state);
-            this.tail = this.tail.prevSearchNode;
+            this.tail = this.tail.prevSearchNode; //bugs here?
+            if (this.tail == null) {
+                break;
+            }
         }
-        ans.push(this.tail.state);
         return ans;
     }
 
