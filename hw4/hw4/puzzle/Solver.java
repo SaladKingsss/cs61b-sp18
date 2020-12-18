@@ -58,7 +58,6 @@ public class Solver {
     public Solver(WorldState initial) {
 
         this.head = new SearchNode(initial, 0, null);
-        this.tail = this.head;
         pq.insert(this.head);
         numOfEnqueue += 1;
 
@@ -108,6 +107,7 @@ public class Solver {
             ans.push(temp.state);
             temp = temp.prevSearchNode; //bugs here?
             if (temp == null) {
+                ans.push(temp.state);
                 break;
             }
         }
