@@ -3,7 +3,7 @@ package hw4.puzzle;
 import edu.princeton.cs.algs4.MinPQ;
 
 import java.util.ArrayDeque;
-import java.util.Stack;
+//import java.util.Stack;
 import java.util.ArrayList;
 
 public class Solver {
