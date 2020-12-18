@@ -10,9 +10,6 @@ public class Solver {
     private SearchNode tail;
     private int numOfEnqueue;
 
-    private MinPQ<SearchNode> pq = new MinPQ<>();
-    private ArrayDeque<WorldState> ans = new ArrayDeque<>();
-
     private class SearchNode implements Comparable<SearchNode> {
 
         //a WorldState.
@@ -57,7 +54,9 @@ public class Solver {
      */
     public Solver(WorldState initial) {
 
+        MinPQ<SearchNode> pq = new MinPQ<>();
         this.head = new SearchNode(initial, 0, null);
+        this.tail = this.head;
         pq.insert(this.head);
         numOfEnqueue += 1;
 
@@ -99,6 +98,8 @@ public class Solver {
     /**
      * Returns a sequence of WorldStates from the initial WorldState to the solution.
      */
+
+    /*
     public Iterable<WorldState> solution() {
 
         SearchNode temp = this.tail;
@@ -115,6 +116,16 @@ public class Solver {
                 break;
             }
         }
+        return ans;
+    }
+    */
+    public Iterable<WorldState> solution() {
+        ArrayDeque<WorldState> ans = new ArrayDeque<>();
+        while (!tail.equals(head)) {
+            ans.push(tail.state);
+            tail = tail.prevSearchNode;
+        }
+        ans.push(tail.state);
         return ans;
     }
 
