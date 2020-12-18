@@ -103,6 +103,10 @@ public class Solver {
 
         SearchNode temp = this.tail;
 
+        if (temp == null) {
+            ans.push(temp.state);
+        }
+
         while (!temp.equals(this.head)) {
             ans.push(temp.state);
             temp = temp.prevSearchNode; //bugs here?
