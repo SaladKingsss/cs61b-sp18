@@ -10,12 +10,14 @@ public class Solver {
     private SearchNode tail;
     private int numOfEnqueue;
 
+    private ArrayDeque<WorldState> ans = new ArrayDeque<>();
+
     private class SearchNode implements Comparable<SearchNode> {
 
         //a WorldState.
         private WorldState state;
         //the number of moves made to reach this world state from the initial state.
-        private int numOfMoves = 0;
+        private int numOfMoves;
         //a reference to the previous search node.
         private SearchNode prevSearchNode;
 
@@ -56,7 +58,6 @@ public class Solver {
 
         MinPQ<SearchNode> pq = new MinPQ<>();
         this.head = new SearchNode(initial, 0, null);
-        this.tail = this.head;
         pq.insert(this.head);
         numOfEnqueue += 1;
 
@@ -90,9 +91,10 @@ public class Solver {
     /**
      * Returns the minimum number of moves to solve the puzzle
      * starting at the initial WorldState.
+     * bugs still!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
     public int moves() {
-        return tail.numOfMoves;
+        return ans.size() - 1;
     }
 
     /**
@@ -120,7 +122,7 @@ public class Solver {
     }
     */
     public Iterable<WorldState> solution() {
-        ArrayDeque<WorldState> ans = new ArrayDeque<>();
+
         while (!tail.equals(head)) {
             ans.push(tail.state);
             tail = tail.prevSearchNode;
