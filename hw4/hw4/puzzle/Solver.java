@@ -3,6 +3,8 @@ package hw4.puzzle;
 import edu.princeton.cs.algs4.MinPQ;
 
 import java.util.ArrayDeque;
+import java.util.Stack;
+import java.util.ArrayList;
 
 public class Solver {
 
@@ -11,6 +13,8 @@ public class Solver {
     private int numOfEnqueue;
 
     private ArrayDeque<WorldState> ans = new ArrayDeque<>();
+    private ArrayList<WorldState> solution = new ArrayList<>();
+
 
     private class SearchNode implements Comparable<SearchNode> {
 
@@ -57,13 +61,14 @@ public class Solver {
     public Solver(WorldState initial) {
 
         MinPQ<SearchNode> pq = new MinPQ<>();
-        this.head = new SearchNode(initial, 0, null);
+        SearchNode currentNode = new SearchNode(initial, 0, null);
+        this.head = currentNode;
         pq.insert(this.head);
         numOfEnqueue += 1;
 
         while (!pq.isEmpty()) {
 
-            SearchNode currentNode = pq.delMin();
+            currentNode = pq.delMin();
 
             // tail gets from here.
             if (currentNode.state.isGoal()) {
@@ -85,15 +90,29 @@ public class Solver {
                 numOfEnqueue += 1;
             }
         }
+/*
+        Stack<WorldState> path = new Stack<>();
+        for (SearchNode n = currentNode; n != null; n = n.prevSearchNode) {
+            path.push(n.state);
+        }
+        while (!path.isEmpty()) {
+            solution.add(path.pop());
+        }
+*/
+        for (SearchNode n = currentNode; n != null; n = n.prevSearchNode) {
+            ans.push(n.state);
+        }
 
     }
 
     /**
      * Returns the minimum number of moves to solve the puzzle
      * starting at the initial WorldState.
-     * bugs still!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
     public int moves() {
+        if (ans.size() == 0) {
+            return 0;
+        }
         return ans.size() - 1;
     }
 
@@ -121,6 +140,7 @@ public class Solver {
         return ans;
     }
     */
+    /*
     public Iterable<WorldState> solution() {
 
         while (!tail.equals(head)) {
@@ -128,6 +148,10 @@ public class Solver {
             tail = tail.prevSearchNode;
         }
         ans.push(tail.state);
+        return ans;
+    }
+    */
+    public Iterable<WorldState> solution() {
         return ans;
     }
 
