@@ -8,7 +8,7 @@ public class Solver {
 
     private SearchNode head;
     private SearchNode tail;
-    int numOfEnqueue;
+    private int numOfEnqueue;
 
     private class SearchNode implements Comparable<SearchNode> {
 
@@ -25,12 +25,17 @@ public class Solver {
             this.prevSearchNode = prevSearchNode;
         }
 
+
         @Override
         public int compareTo(SearchNode other) {
             return (this.numOfMoves + this.state.estimatedDistanceToGoal())
                     - (other.numOfMoves + other.state.estimatedDistanceToGoal());
         }
 
+    }
+
+    public int getNumOfEnqueue(){
+        return numOfEnqueue;
     }
 
     /**
