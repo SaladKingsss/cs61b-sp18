@@ -34,7 +34,8 @@ public class Solver {
 
     }
 
-    public int getNumOfEnqueue(){
+    //bugs still.
+    protected int getNumOfEnqueue() {
         return numOfEnqueue;
     }
 
