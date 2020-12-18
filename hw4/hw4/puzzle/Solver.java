@@ -1,7 +1,6 @@
 package hw4.puzzle;
 
 import edu.princeton.cs.algs4.MinPQ;
-import edu.princeton.cs.algs4.StdOut;
 
 import java.util.ArrayDeque;
 
@@ -11,8 +10,8 @@ public class Solver {
     private SearchNode tail;
     private int numOfEnqueue;
 
-    MinPQ<SearchNode> pq = new MinPQ<>();
-    ArrayDeque<WorldState> ans = new ArrayDeque<>();
+    private MinPQ<SearchNode> pq = new MinPQ<>();
+    private ArrayDeque<WorldState> ans = new ArrayDeque<>();
 
     private class SearchNode implements Comparable<SearchNode> {
 
@@ -40,7 +39,7 @@ public class Solver {
 
 
     //bugs still.
-    protected int getNumOfEnqueue() {
+    private int getNumOfEnqueue() {
         return numOfEnqueue;
     }
 
