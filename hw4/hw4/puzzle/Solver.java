@@ -102,9 +102,9 @@ public class Solver {
      */
     public Iterable<WorldState> solution() {
 
-        SearchNode temp=this.tail;
+        SearchNode temp = this.tail;
 
-        while (temp.equals(this.head)) {
+        while (!temp.equals(this.head)) {
             ans.push(temp.state);
             temp = temp.prevSearchNode; //bugs here?
             if (temp == null) {
