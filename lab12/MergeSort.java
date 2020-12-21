@@ -101,20 +101,6 @@ public class MergeSort {
 
     public static void main(String[] args) {
 
-        Queue<Integer> grades = new Queue<>();
-        Queue<Integer> grades1;
-        grades.enqueue(1);
-        grades.enqueue(5);
-        grades.enqueue(2);
-        grades.enqueue(4);
-        grades.enqueue(3);
-        grades.enqueue(0);
-        System.out.println("original queue: " + grades);
-        grades1 = mergeSort(grades);
-        System.out.println("sorted queue  : " + grades1);
-        StdOut.println(grades.size() == grades1.size());
-
-
         Queue<String> students = new Queue<>();
         students.enqueue("Alice");
         students.enqueue("Vanessa");
