@@ -26,7 +26,7 @@ public class RadixSort {
 
         String[] res = Arrays.copyOf(asciis, asciis.length);
         for (int i = maxLen - 1; i >= 0; i--) {
-            sortHelperLSD(res, i, maxLen);
+            res = sortHelperLSD(res, i);
         }
         return res;
     }
@@ -38,6 +38,7 @@ public class RadixSort {
      * @param asciis Input array of Strings
      * @param index  The position to sort the Strings on.
      */
+    /*
     private static void sortHelperLSD(String[] asciis, int index, int maxLen) {
         // Optional LSD helper method for required LSD radix sort
 
@@ -71,6 +72,7 @@ public class RadixSort {
         }
 
     }
+*/
 
     /*private static int getNum(int index, String item) {
         if (index < item.length() && index >= 0) {
@@ -84,11 +86,46 @@ public class RadixSort {
     private static int getNum(int index, String item, int maxLen) {
         int pos = index - (maxLen - item.length());
         if (pos >= 0) {
-            return item.charAt(pos) + 1;
+            return item.charAt(pos);
         } else {
             return 0;
         }
     }
+
+    private static String[] sortHelperLSD(String[] asciis, int index) {
+        int R = 256;
+
+        int[] counts = new int[R];
+        for (String s : asciis) {
+            if (s.length() - 1 < index) {
+                counts[0]++;
+            } else {
+                counts[s.charAt(index)]++;
+            }
+        }
+
+        int[] starts = new int[R];
+        int pos = 0;
+        for (int i = 0; i < starts.length; i += 1) {
+            starts[i] = pos;
+            pos += counts[i];
+        }
+
+        String[] sorted = new String[asciis.length];
+        for (String s : asciis) {
+            if (s.length() - 1 < index) {
+                int place = starts[0];
+                sorted[place] = s;
+                starts[0] += 1;
+            } else {
+                int place = starts[s.charAt(index)];
+                sorted[place] = s;
+                starts[s.charAt(index)] += 1;
+            }
+        }
+        return sorted;
+    }
+
 
     /**
      * MSD radix sort helper function that recursively calls itself to achieve the sorted array.
@@ -106,7 +143,7 @@ public class RadixSort {
 
     public static void main(String[] args) {
 
-        String[] asciis = new String[]{"56", "112", "94", "4", "9", "82", "394", "80"};
+        String[] asciis = new String[]{"<K", "_ù&8¤", "|mÀ©", "ªåe@B"};
         String[] res = RadixSort.sort(asciis);
         for (String s : res) {
             System.out.print(s + " ");
